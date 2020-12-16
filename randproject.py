@@ -25,7 +25,33 @@ class RandomCracker:
 
         return self._harden(self.mt[self.counter-1])
     
-    # добавлена закалка
+    
+     def _or_nums(self, a, b):
+        if len(a) < 32:
+            a = [0]* (32-len(a))+a
+        if len(b) < 32:
+            b = [0]* (32-len(b))+b
+
+        return [x[0] | x[1] for x in zip(a, b)]
+
+    def _xor_nums(self, a, b):
+        if len(a) < 32:
+            a = [0]* (32-len(a))+a
+        if len(b) < 32:
+            b = [0]* (32-len(b))+b
+
+        return [x[0] ^ x[1] for x in zip(a, b)]
+
+    def _and_nums(self, a, b):
+        if len(a) < 32:
+            a = [0]* (32-len(a))+a
+        if len(b) < 32:
+            b = [0]* (32-len(b))+b
+
+        return [x[0] & x[1] for x in zip(a, b)]
+    
+    
+    #закалка
     def _harden(self, bits):
         bits = self._xor_nums(bits, bits[:-11])
         bits = self._xor_nums(bits, self._and_nums(bits[7:] + [0] * 7 , self._to_bitarray(0x9d2c5680)))
