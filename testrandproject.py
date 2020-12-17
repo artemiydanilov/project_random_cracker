@@ -28,6 +28,21 @@ class TestRandomCracker(unittest.TestCase):
             self.randomCracker.submit(random.randint(0, 4294967294))
         self.assertTrue(sum([random.randint(0, 4294967294) == self.randomCracker.predict()
                                  for i in range(10000)]) / 100.0 >= 95)
+        
+    def testXOR(self):
+        self.assertEqual(self.randomCracker.xor_nums([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,1], 
+                                                     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1]),
+                                                     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0])
+    def testOR(self):
+        self.assertEqual(self.randomCracker.or_nums([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,1,1],
+                                                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,1,0,0,0]),
+                                                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,1,1])
+        
+     def testAND(self):
+        self.assertEqual(self.randomCracker.and_nums([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,1,1],
+                                                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,1,0,0,0]),
+                                                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0])
+        
 
 if __name__ == '__main__':
     unittest.main()
